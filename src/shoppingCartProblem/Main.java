@@ -4,8 +4,9 @@ import java.util.*;
 
 public class Main {
 
-    static Map<Cart,Integer> listItem;
-    static Map<String,Integer> cartList;
+    public static Map<Cart,Integer> listItem;
+    public static Map<String,Integer> cartList;
+
     public static void main(String[] args) {
 
         listItem=new HashMap<>();
@@ -36,7 +37,8 @@ public class Main {
             removeProduct();
         }
         if(selection==3){
-            //totalOfProduct();
+            Tax tax=new Tax();
+            tax.computeTotal();
         }
     }
 
