@@ -70,6 +70,11 @@ public class Main {
                     System.out.println("Enter valid Quantity retry from main menu : ");
                     selectionOfProducts();
                 }
+
+                if(mapEntrySet.getValue()>0){
+                    int temp=mapEntrySet.getValue()-quantity;
+                    mapEntrySet.setValue(temp);
+                }
             }
         }
         if(presentCase==false){
