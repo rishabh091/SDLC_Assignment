@@ -33,10 +33,40 @@ public class Main {
             addAProduct();
         }
         if(selection==2){
-            //removeProduct();
+            removeProduct();
         }
         if(selection==3){
             //totalOfProduct();
+        }
+    }
+
+    static void removeProduct(){
+
+        String name;
+        Scanner io=new Scanner(System.in);
+
+        Set<Map.Entry<String,Integer>> set=cartList.entrySet();
+
+        Iterator<Map.Entry<String,Integer>> iterator=set.iterator();
+
+        System.out.println("Enter name of product you want to remove : ");
+        name=io.next().toLowerCase();
+
+        boolean temp=false;
+        while (iterator.hasNext()){
+            if(iterator.next().getKey().equals(name)){
+                temp=true;
+                cartList.remove(name);
+            }
+        }
+
+        if(temp==true){
+            System.out.println("Item successfully Removed");
+            selectionFunction();
+        }
+        if(temp==false){
+            System.out.println("Enter valid name to remove : ");
+            selectionFunction();
         }
     }
 
@@ -65,24 +95,28 @@ public class Main {
 
                 if(quantity>0 && quantity<=mapEntrySet.getValue()){
                     cartList.put(name,quantity);
+
+                    if(mapEntrySet.getValue()>0){
+                        int temp=mapEntrySet.getValue()-quantity;
+                        mapEntrySet.setValue(temp);
+                    }
                 }
                 else {
                     System.out.println("Enter valid Quantity retry from main menu : ");
-                    selectionOfProducts();
-                }
-
-                if(mapEntrySet.getValue()>0){
-                    int temp=mapEntrySet.getValue()-quantity;
-                    mapEntrySet.setValue(temp);
+                    selectionFunction();
                 }
             }
         }
         if(presentCase==false){
             System.out.println("Enter valid name retry from main menu : ");
-            selectionOfProducts();
+            selectionFunction();
         }
 
+        System.out.println("Your Cart : ");
         displayCartList(cartList);
+
+        System.out.println("Inventory : ");
+        displayList(listItem);
 
         System.out.println("Do you wanna add more items : (y/n)");
         char ch=io.next().toLowerCase().charAt(0);
