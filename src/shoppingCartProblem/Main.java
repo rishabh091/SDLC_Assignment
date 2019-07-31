@@ -12,11 +12,11 @@ public class Main {
         listItem=new HashMap<>();
         cartList=new HashMap<>();
 
-        listItem.put(new Cart("chocolates",100),10);
-        listItem.put(new Cart("earphones",2000),5);
-        listItem.put(new Cart("shirts",1000),20);
-        listItem.put(new Cart("jeans",2000),30);
-        listItem.put(new Cart("shoes",1500),7);
+        listItem.put(new Cart("chocolates","organic",100),10);
+        listItem.put(new Cart("earphones","luxury",2000),5);
+        listItem.put(new Cart("shirts","other",1000),20);
+        listItem.put(new Cart("jeans","other",2000),30);
+        listItem.put(new Cart("shoes","other",1500),7);
 
         System.out.println("Items in Inventory : ");
         displayList(listItem);
@@ -37,8 +37,9 @@ public class Main {
             removeProduct();
         }
         if(selection==3){
-            Tax tax=new Tax();
-            tax.computeTotal();
+            Total total=new Total();
+            total.computeTotal();
+
         }
     }
 
@@ -55,11 +56,10 @@ public class Main {
         name=io.next().toLowerCase();
 
         boolean temp=false;
-        while (iterator.hasNext()){
-            if(iterator.next().getKey().equals(name)){
-                temp=true;
-                cartList.remove(name);
-            }
+        //sometimes giving java.util.ConcurrentModificationException
+        if(cartList.containsKey(name)) {
+            temp = true;
+            cartList.remove(name);
         }
 
         if(temp==true){
