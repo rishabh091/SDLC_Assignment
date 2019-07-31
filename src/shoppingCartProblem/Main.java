@@ -70,10 +70,6 @@ public class Main {
         String name;
         Scanner io=new Scanner(System.in);
 
-        Set<Map.Entry<String,Integer>> set=cartList.entrySet();
-
-        Iterator<Map.Entry<String,Integer>> iterator=set.iterator();
-
         System.out.println("Enter name of product you want to remove : ");
         name=io.next().toLowerCase();
 

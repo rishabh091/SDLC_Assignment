@@ -1,15 +1,13 @@
 package shoppingCartProblem;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Total {
 
     private double sum;
     private Map<Cart,Integer> Inventory=new HashMap<>();
     private Map<String,Integer> shoppingCart=new HashMap<>();
+    private List<String> global=new LinkedList<>();
 
     Total(){
         sum=0;
@@ -41,6 +39,8 @@ public class Total {
                     price = inventoryEntry.getKey().getPriceOfProduct();
                     quantity = shoppingEntry.getValue();
                     category=inventoryEntry.getKey().getCategory();
+
+                    global.add(inventoryEntry.getKey().getNameOfProduct());
                 }
 
                 sum=sum+(quantity*price);
@@ -65,6 +65,47 @@ public class Total {
         System.out.println("CGST : "+cgst);
         System.out.println("SGST : "+sgst);
         System.out.println("Total is : "+sum);
-        Main.selectionFunction();
+
+        returnFunction();
+
+    }
+
+    public void returnFunction(){
+        boolean state=false;
+        Scanner io=new Scanner(System.in);
+
+        System.out.println("Do you want to return / shop ?");
+        while (state==false){
+            String temp=io.next();
+            if(temp.equals("return")){
+                state=true;
+                System.out.println("Enter name of item : ");
+                String input=io.next();
+
+                if(global.contains(input)){
+                    if(input.equals("earphones")){
+                        System.out.println("Item not returnable");
+                    }
+                    if(input.equals("jeans") || input.equals("shoes") || input.equals("shirts")){
+                        System.out.println("Item can only be returned before 30 days with price tag intact.");
+                    }
+                    if(input.equals("chocolates")){
+                        System.out.println("Can only be returned in 1 day.");
+                    }
+                }
+                else{
+                    System.out.println("Product not found.");
+                }
+            }
+            if(temp.equals("shop")){
+                state=true;
+                Main.displayList(Main.listItem);
+                Main.selectionFunction();
+            }
+            else{
+                state=false;
+                returnFunction();
+            }
+        }
     }
 }
