@@ -39,7 +39,29 @@ public class Main {
         if(selection==3){
             Total total=new Total();
             total.computeTotal();
+        }
+        if(selection==4){
+            editQuantity();
+        }
+    }
 
+    static void editQuantity(){
+
+        Scanner io=new Scanner(System.in);
+
+        System.out.println("Enter name of product : ");
+        String tempName=io.next();
+        System.out.println("Enter new Quantity : ");
+        int quantity=io.nextInt();
+
+        if(cartList.containsKey(tempName)){
+            cartList.put(tempName,quantity);
+            displayCartList(cartList);
+            selectionFunction();
+        }
+        else{
+            System.out.println("Product not found.");
+            selectionFunction();
         }
     }
 
@@ -64,6 +86,7 @@ public class Main {
 
         if(temp==true){
             System.out.println("Item successfully Removed");
+            displayCartList(cartList);
             selectionFunction();
         }
         if(temp==false){
@@ -157,7 +180,7 @@ public class Main {
         String input;
         Scanner io=new Scanner(System.in);
 
-        System.out.println("Add, remove or total : ");
+        System.out.println("Add, remove, change or total : ");
         input=io.next().toLowerCase();
 
         if(input.equals("add")){
@@ -168,6 +191,9 @@ public class Main {
         }
         if(input.equals("total")){
             return 3;
+        }
+        if(input.equals("change")){
+            return 4;
         }
         else {
             return 0;
